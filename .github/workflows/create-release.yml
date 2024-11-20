@@ -14,17 +14,9 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
 
-        - name: Create a Release in a GitHub Action
-          uses: comnoco/create-release-action@v2.0.5
-          id: create_release
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Github Release
+          uses: elgohr/Github-Release-Action@v5
           with:
-            tag_name: ${{ github.ref }}
-            release_name: ${{ github.ref }}
-            body: |
-              Changes in this Release
-              - First Change
-              - Second Change
-            draft: false
+            title: ${{ github.ref }}
+            tag: ${{ github.ref }}
             prerelease: false
