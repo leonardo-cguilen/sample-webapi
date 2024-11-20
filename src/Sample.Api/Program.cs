@@ -22,4 +22,21 @@ app.MapGet("/todos", ([FromServices] ITodoRepository todoRepository) =>
     return todos.Select(t => new TodoResponse { Id = t.Id, Description = t.Description });
 });
 
+app.MapGet("/todos/{todoId}", (
+    [FromRoute] int todoId,
+    [FromServices] ITodoRepository todoRepository) =>
+{
+    var todo = todoRepository.GetById(todoId);
+    if (todo is null)
+    {
+        return Results.NotFound();
+    }
+
+    return new TodoResponse
+    {
+        Id = todo.Id,
+        Description = todo.Description
+    };
+});
+
 await app.RunAsync();
