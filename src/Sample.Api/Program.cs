@@ -16,6 +16,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.MapGet("/hello", () =>
+{
+    return "hello";
+});
+
 app.MapGet("/todos", ([FromServices] ITodoRepository todoRepository) =>
 {
     var todos = todoRepository.GetAll();
